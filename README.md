@@ -4,7 +4,7 @@
 
 **THIS IS AN INDIVIDUAL PROJECT NOT EXPECTED TO RUN ON CARLA.**
 
-![Simulator final sanp](https://github.com/yadava2/CarND-Capstone/imgs/Simulator.png)
+![Simulator final sanp](https://github.com/yadava2/CarND-Capstone_lcl/imgs/Simulator.png)
 
 ## Project Overview
 ### Carla Architecture
