@@ -1,4 +1,61 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+# Self-Driving Car Engineer Capstone project
+
+## Submitter Info
+
+**THIS IS AN INDIVIDUAL PROJECT NOT EXPECTED TO RUN ON CARLA.**
+
+![Simulator final sanp](https://github.com/yadava2/CarND-Capstone/imgs/Simulator.png)
+
+## Project Overview
+### Carla Architecture
+Carla is the custom Lincoln MKZ that Udacity has converted into a self-driving car.  It's self-driving system is broken down into four major sub-systems: **Sensors**, **Perception**, **Planning** and **Control** 
+
+#### Sensors
+Includes everything needed to understand its surroundings and location including **cameras**, **lidar**, **GPS**, **radar**, and **IMU**
+#### Perception
+Abstracts sensor inputs into object **detection** and **localization**
+##### Detection
+* Includes software pipelines for vehicle detection, traffic light detection, obstacle detection, etc
+* Techniques in image manipulation include Histogram of Oriented Gradients (HOG) feature extraction, color transforms, spacial binning
+* Methods of classification include sliding-window or sub-sampling along with heat maps and bounding boxes for recurring detections
+##### Localization
+* Answers the question: “Where is our car in a given map with an accuracy of 10cm or less?”
+* Based on the notion that GPS is not accurate enough
+* Onboard sensors are used to estimate transformation between measurements and a given map
+#### Planning
+Path planning is broken down into for sub-components: **route planning**, **prediction**, **behavioral planning**, and **trajectory planning**
+##### Route Planning
+The route planning component is responsible for high-level decisions about the path of the vehicle between two points on a map; for example which roads, highways, or freeways to take. This component is similar to the route planning feature found on many smartphones or modern car navigation systems.
+##### Prediction
+The prediction component estimates what actions other objects might take in the future. For example, if another vehicle were identified, the prediction component would estimate its future trajectory.
+##### Behavioral Planning
+The behavioral planning component determines what behavior the vehicle should exhibit at any point in time. For example stopping at a traffic light or intersection, changing lanes, accelerating, or making a left turn onto a new street are all maneuvers that may be issued by this component.
+##### Trajectory Planning
+Based on the desired immediate behavior, the trajectory planning component will determine which trajectory is best for executing this behavior.
+### Control
+The control component takes trajectory outputs and processes them with a controller algorithm like **PID** or **MPC** to adjust the control inputs for smooth operation of the vehicle. 
+
+## ROS Architecture
+
+### Waypoint Updater
+
+This node publishes waypoints from the car's current position to some `x` distance ahead. If an upcoming stop light is detected, the velocity of the waypoints will be adjusted and the car decelerates or accelerates depending on the light state.
+
+### Drive-By-Wire Node / Twist Controller
+
+#### Drive-By-Wire Node
+
+This node represents a drive by wire controller. It receives current and requested steering/velocities, calculates throttle, brake and steering commands and publishes them to the vehicle.
+
+#### Twist Controller
+
+This controller is responsible for acceleration and steering. The acceleration is controlled via PID controller. Steering is calculated using YawController which simply calculates needed angle to keep needed velocity.
+
+### Traffic Light Detection / Classification
+
+This node is responsible for detecting upcoming traffic lights and classify their states (red, yellow, green).
+
+## UDACITY INSTRUCTIONS BELOW
 
 Please use **one** of the two installation options, either native **or** docker installation.
 
